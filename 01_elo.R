@@ -10,8 +10,19 @@ library(lubridate)
 
 
 # Data (see README for links)
-match_data <- read_csv("data/results.csv") %>% filter(complete.cases(.))
-fixtures <- read_csv("data/fifa-world-cup-2022-GMTStandardTime.csv")
+match_data <- read_csv("data/results.csv") %>%
+  filter(complete.cases(.)) %>%
+  mutate(home_team = case_when(home_team == "United States" ~ "USA",
+                               T ~ home_team),
+         away_team = case_when(away_team == "United States" ~ "USA",
+                               T ~ away_team))
+fixtures <- read_csv("data/fifa-world-cup-2022-GMTStandardTime.csv") %>%
+  rename(home_team = `Home Team`,
+         away_team = `Away Team`) %>%
+  mutate(home_team = case_when(home_team == "Korea Republic" ~ "South Korea",
+                               T ~ home_team),
+         away_team = case_when(away_team == "Korea Republic" ~ "South Korea",
+                               T ~ away_team))
 
 
 
@@ -77,9 +88,16 @@ for (i in 1:nrow(matches)) {
 
 # Check results vs http://eloratings.net/
 # team_ratings %>% arrange(rating)
-team_ratings %>% filter(team %in% unique(c(fixtures$`Home Team`, fixtures$`Away Team`))) %>% arrange(rating)
+team_ratings %>% filter(team %in% unique(c(fixtures$home_team, fixtures$away_team))) %>% arrange(rating)
 
 
 # Rn = Ro + K × (W - We)
 # We = 1 / (10(-dr/400) + 1)
 # -dr = diff in ratings (+ 100 for the team playing at home)
+
+
+
+# Save output ----
+teams <- team_ratings %>% filter(team %in% unique(c(fixtures$home_team, fixtures$away_team)))
+save(teams, file="data/team_ratings.RData")
+                                 
