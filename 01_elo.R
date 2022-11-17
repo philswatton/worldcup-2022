@@ -22,7 +22,9 @@ fixtures <- read_csv("data/fifa-world-cup-2022-GMTStandardTime.csv") %>%
   mutate(home_team = case_when(home_team == "Korea Republic" ~ "South Korea",
                                T ~ home_team),
          away_team = case_when(away_team == "Korea Republic" ~ "South Korea",
-                               T ~ away_team))
+                               T ~ away_team)) %>%
+  filter(!is.na(Group)) %>%
+  select(home_team, away_team, group=Group)
 
 
 
@@ -31,26 +33,37 @@ matches <- match_data %>%
   mutate(result = case_when(home_score > away_score ~ 1,
                             home_score == away_score ~ 0.5,
                             T ~ 0),
-         goal_diff = case_when(abs(home_score - away_score) == 2 ~ 1.5,
-                               abs(home_score - away_score) == 3 ~ 1.75,
-                               abs(home_score - away_score) >= 4 ~ 1.75 + (abs(home_score - away_score)-3)/8,
-                               T ~ 1)) %>%
-  select(date, home_team, away_team, tournament, result, goal_diff)
+         goal_diff = abs(home_score - away_score),
+         # multiplier = case_when(goal_diff == 2 ~ 1.5,
+         #                        goal_diff == 3 ~ 1.75,
+         #                        goal_diff >= 4 ~ 1.75 + (goal_diff-3)/8,
+         #                       T ~ 1)
+         multiplier = case_when(goal_diff == 0 ~ 1,
+                                T ~ sqrt(goal_diff))) %>%
+  select(date, home_team, away_team, tournament, result, multiplier)
 
 
 # Add importance weights to matches
 # Somewhat based on:
 # - http://eloratings.net/about for values
 # - https://www.kaggle.com/code/lekroll/predictions-for-the-fifa-world-cup-2018-using-r/notebook for use of regex
+# matches <- matches %>%
+#   mutate(importance = case_when(str_detect(tournament,"FIFA") ~ 60,
+#                                 str_detect(tournament, "UEFA") ~ 50,
+#                                 str_detect(tournament, "Copa América") | str_detect(tournament, "African Cup of Nations") ~ 40,
+#                                 !str_detect(tournament, "Friendly") ~ 30,
+#                                 str_detect(tournament, "Friendly") ~ 20),
+#          importance = case_when(str_detect(tournament, "qualification") ~ importance * 0.75,
+#                                 T ~ importance),
+#          importance = importance * multiplier)
+
+# Helper
+# helper <- read_csv("data/competition_index.csv") %>%
+#   rename(importance = match_importance)
 matches <- matches %>%
-  mutate(importance = case_when(str_detect(tournament,"FIFA") ~ 60,
-                                str_detect(tournament, "UEFA") ~ 50,
-                                str_detect(tournament, "Copa América") | str_detect(tournament, "African Cup of Nations") ~ 40,
-                                !str_detect(tournament, "Friendly") ~ 30,
-                                str_detect(tournament, "Friendly") ~ 20),
-         importance = case_when(str_detect(tournament, "qualification") ~ importance * 0.75,
-                                T ~ importance),
-         importance = importance * goal_diff)
+  # left_join(helper) %>%
+  # filter(importance != "drop") %>%
+  mutate(importance = 30)#as.numeric(importance)*multiplier)
 
 
 
@@ -88,7 +101,7 @@ for (i in 1:nrow(matches)) {
 
 # Check results vs http://eloratings.net/
 # team_ratings %>% arrange(rating)
-team_ratings %>% filter(team %in% unique(c(fixtures$home_team, fixtures$away_team))) %>% arrange(rating)
+team_ratings %>% filter(team %in% unique(c(fixtures$home_team, fixtures$away_team))) %>% arrange(-rating)
 
 
 # Rn = Ro + K × (W - We)
@@ -100,4 +113,4 @@ team_ratings %>% filter(team %in% unique(c(fixtures$home_team, fixtures$away_tea
 # Save output ----
 teams <- team_ratings %>% filter(team %in% unique(c(fixtures$home_team, fixtures$away_team)))
 save(teams, file="data/team_ratings.RData")
-                                 
+save(fixtures, file="data/fixtures.RData")                                 
