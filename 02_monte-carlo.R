@@ -300,7 +300,7 @@ for (n in 1:N) {
 
 # Storing Results ----
 
-save(results_group, results_16, results_quarter, results_semi, results_final, file="results/results.RData")
+save(group_probs, results_group, results_16, results_quarter, results_semi, results_final, file="results/results.RData")
 
 
 
