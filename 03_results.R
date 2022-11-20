@@ -44,6 +44,15 @@ map(results_group, function(x) {
 
 
 
+# Make it to 16 ----
+made16 <- map(results_group, function(x) {
+  return(x[,1:2])
+}) %>%
+  reduce(rbind) %>%
+  table()
+sort(made16/N, decreasing=T)
+
+
 
 
 # 16s Winners ----
