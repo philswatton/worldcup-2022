@@ -1,0 +1,49 @@
+home_team,away_team,group,home_win_prob
+Qatar,Ecuador,Group A,0.28073667541641684
+England,Iran,Group B,0.5717687651736374
+Senegal,Netherlands,Group A,0.28262908742810133
+USA,Wales,Group B,0.600917408041281
+Argentina,Saudi Arabia,Group C,0.8884153449482417
+Denmark,Tunisia,Group D,0.7036173939865061
+Mexico,Poland,Group C,0.5255026020262623
+France,Australia,Group D,0.7525447479149044
+Morocco,Croatia,Group F,0.3911724542360686
+Germany,Japan,Group E,0.6332144542781997
+Spain,Costa Rica,Group E,0.7891829368513148
+Belgium,Canada,Group F,0.7645094213447308
+Switzerland,Cameroon,Group G,0.7577783787337694
+Uruguay,South Korea,Group H,0.6428471394149925
+Portugal,Ghana,Group H,0.8269487929838358
+Brazil,Serbia,Group G,0.8077287935647971
+Wales,Iran,Group B,0.3460391641369486
+Qatar,Senegal,Group A,0.3321916562172746
+Netherlands,Ecuador,Group A,0.6657302755279119
+England,USA,Group B,0.6262769646313281
+Tunisia,Australia,Group D,0.47539031793509395
+Poland,Saudi Arabia,Group C,0.6272106780933641
+France,Denmark,Group D,0.5856874155492123
+Argentina,Mexico,Group C,0.8103502730219239
+Japan,Costa Rica,Group E,0.5713398421727982
+Belgium,Morocco,Group F,0.7257498153989633
+Croatia,Canada,Group F,0.6562856935870084
+Spain,Germany,Group E,0.6193183090180914
+Cameroon,Serbia,Group G,0.2782152858528239
+South Korea,Ghana,Group H,0.7178182781901664
+Brazil,Switzerland,Group G,0.7769730872237923
+Portugal,Uruguay,Group H,0.5106851126900036
+Ecuador,Senegal,Group A,0.5603348789122761
+Netherlands,Qatar,Group A,0.836134945514748
+Wales,England,Group B,0.28382497125972855
+Iran,USA,Group B,0.5565584997830639
+Australia,Denmark,Group D,0.31733089832178024
+Tunisia,France,Group D,0.22956854568342214
+Poland,Argentina,Group C,0.17445358522629473
+Saudi Arabia,Mexico,Group C,0.3492430644694917
+Croatia,Belgium,Group F,0.37033543922760465
+Canada,Morocco,Group F,0.4490774509287981
+Japan,Spain,Group E,0.262563384017474
+Costa Rica,Germany,Group E,0.3029368602788469
+Ghana,Uruguay,Group H,0.17925423806247975
+South Korea,Portugal,Group H,0.3473994279696402
+Serbia,Switzerland,Group G,0.4533346626554386
+Cameroon,Brazil,Group G,0.08404220825708048
