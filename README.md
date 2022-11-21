@@ -1,6 +1,6 @@
 # GV2022 World Cup Predicitons
 
-I entered a contest to try and predict the 2022 Fifa World Cup with very little prior knoweldge. You can read a blog post about my attempt here: <https://philswatton.github.io/r/2022/11/16/2022-world-cup-prediction.html>
+I entered a contest to try and predict the 2022 Fifa World Cup with very little prior knoweldge. You can read a blog post about my attempt here: <https://philswatton.github.io/r/2022/11/21/world-cup-forecasting.html>
 
 
 ## Files
