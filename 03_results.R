@@ -158,8 +158,9 @@ pts2 <- ((made16 %>% arrange(-`Last 16`) %>% `[[`(2))/N)[1:16]
 pts3 <- ((won16 %>% arrange(-`Quarter Finals`) %>% `[[`(2))/N)[1:8] * 2
 pts4 <- ((wonQuarters %>% arrange(-`Semi Finals`) %>% `[[`(2))/N)[1:4] * 2
 pts5 <- ((wonSemis %>% arrange(-`Finals`) %>% `[[`(2))/N)[1:2] * 2
-pts6 <- ((wonFinal %>% arrange(-`Win`) %>% `[[`(2))/N)[1] * 2
+pts6 <- ((wonFinal %>% arrange(-`Win`) %>% `[[`(2))/N)[1] * 3
 
-
+# Total
+sum(pts1) + sum(pts2) + sum(pts3) + sum(pts4) + sum(pts5) + sum(pts6)
 
 
