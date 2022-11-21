@@ -80,7 +80,7 @@ names(made16) <- c("Team", "Last 16")
 ## 16s Winners
 won16 <- table(results_16) %>%
   as.data.frame()
-names(won16) <- c("Team", "Quater Finals")
+names(won16) <- c("Team", "Quarter Finals")
 
 
 ## Quarters Winners
@@ -141,4 +141,25 @@ rownames(html_teams) <- expected_teams$Team
 expected_table <- htmlTable(html_teams,
           css.cell=cell_colour(html_teams))
 writeLines(print(expected_table, useViewer = F), "results/results_03_expected_team_performances.html")
+
+
+
+
+# Quick calculation of expected pts in essex contest ----
+
+# Teams implicitly predicted by rank order:
+rank_teams <- c("Netherlands", "Ecuador", "England", "Iran", "Argentina", "Mexico", "France", "Denmark",
+  "Spain", "Germany", "Belgium", "Croatia", "Brazil", "Switzerland", "Portugal", "Uruguay")
+all((made16 %>% arrange(-`Last 16`) %>% `[[`("Team") %>% `[`(1:16)) %in% rank_teams) #TRUE - nice!
+
+# Calculate pts for each stage of contest
+pts1 <- expected_group_order$Probability/100 * 2
+pts2 <- ((made16 %>% arrange(-`Last 16`) %>% `[[`(2))/N)[1:16]
+pts3 <- ((won16 %>% arrange(-`Quarter Finals`) %>% `[[`(2))/N)[1:8] * 2
+pts4 <- ((wonQuarters %>% arrange(-`Semi Finals`) %>% `[[`(2))/N)[1:4] * 2
+pts5 <- ((wonSemis %>% arrange(-`Finals`) %>% `[[`(2))/N)[1:2] * 2
+pts6 <- ((wonFinal %>% arrange(-`Win`) %>% `[[`(2))/N)[1] * 2
+
+
+
 
